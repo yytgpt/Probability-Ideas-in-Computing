@@ -1,286 +1,204 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  My documentation report
-%  Objetive: Explain what I did and how, so someone can continue with the investigation
-%
-% Important note:
-% Chapter heading images should have a 2:1 width:height ratio,
-% e.g. 920px width and 460px height.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%harihiom
+\documentclass{llncs}
+
+\usepackage[english]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+%\usepackage{wrapfig}
+%\usepackage{titlepic}
+%\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{graphicx,epstopdf}
+\usepackage{amsmath,amssymb,amsfonts,subfigure}
+\usepackage{comment}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pifont}
+\usepackage[normalem]{ulem}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{gensymb}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{algorithm}
+\linespread{1}
+\usepackage{color}
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\newtheorem{claim1}{Claim}
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage[compatibility=false]{caption}% http://ctan.org/pkg/caption
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{Lemma}
+
+\title{Lecture - 2}
+\author{Thursday, 28 July 2016 (17:10 - 18:00)}
 
 
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
+\institute{Puzzles : The Online Hiring/ Dating Problem}
 
-\documentclass[11pt,fleqn]{book} % Default font size and left-justified equations
-
-\usepackage[top=3cm,bottom=3cm,left=3.2cm,right=3.2cm,headsep=10pt,letterpaper]{geometry} % Page margins
-
-\usepackage{xcolor} % Required for specifying colors by name
-\definecolor{ocre}{RGB}{52,177,201} % Define the orange color used for highlighting throughout the book
-
-% Font Settings
-\usepackage{avant} % Use the Avantgarde font for headings
-%\usepackage{times} % Use the Times font for headings
-\usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Sym­bol, Chancery and Com­puter Modern fonts
-\usepackage{microtype} % Slightly tweak font spacing for aesthetics
-\usepackage[utf8]{inputenc} % Required for including letters with accents
-\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
-\usepackage{amsthm}
-
-% Bibliography
-\usepackage[style=alphabetic,sorting=nyt,sortcites=true,autopunct=true,babel=hyphen,hyperref=true,abbreviate=false,backref=true,backend=biber]{biblatex}
-\addbibresource{bibliography.bib} % BibTeX bibliography file
-\defbibheading{bibempty}{}
-
-\input{structure} % Insert the commands.tex file which contains the majority of the structure behind the template
-
-%----------------------------------------------------------------------------------------
-%	Definitions of new commands
-%----------------------------------------------------------------------------------------
-
-\def\R{\mathbb{R}}
-\newcommand{\cvx}{convex}
 \begin{document}
+\maketitle
 
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
 
-\begingroup
-\thispagestyle{empty}
-\AddToShipoutPicture*{\put(0,0){\includegraphics[scale=1.25]{esahubble}}} % Image background
+\section{Some interesting math jokes and to be thought about questions}
+
+{\footnotesize These paradoxes have not been discussed in detail in the class. They will be covered in the tutorial session.}
+
+\begin{enumerate}
+
+\item A mathematician was caught hiding a bomb in his bag while boarding onto the flight from England to Canada. When asked why he has done so, he says - ``The probability of a man carrying a bomb in a flight = $\frac{1}{1000}$, which is still very high. So I could not have my peace of mind on the journey. But the probability of two people carrying a bomb in the flight = $\frac{1}{1000} \times \frac{1}{1000}\ = \frac{1}{1000000}$, which is very less. So if I carry a bomb, the probability of another bomb being present in this flight reduces by a very big extent."\\
+\textit{To think:}What is wrong about these reasoning. 
+
+\item Imagine a very old building standing intact from millions of years. Let $P(today)$ = The probability that this building will fall today and $P(tomorrow)$ = The probability that this building will fall tomorrow. \\
+\textit{To think}: Whether $P(today)<P(tomorrow)$, or $P(today)>P(tomorrow)$ or $P(today)=P(tomorrow)$ ?
+
+\item Consider a multiple choice exam conducted countrywide. There are two students- $A$ and $B$. $A$ and $B$ both have got equal marks. But $A$ knew the answers correctly of the questions he answered, while $B$ answered the questions randomly and was lucky enough to get the same marks as $A$. \\
+\textit{To think:} By looking at their OMR\footnote{Optical Mark Reading- One where we darken the bubbles corresponding to the correct answer- A/B/C/D.} sheets, can you tell, which is the sheet of $A$ and which is the sheet of $B$.
+
+\end{enumerate}
+
+
+\section{Online Hiring/ Dating Problem}
+\textbf{Problem Statement}: You are searching for a match for marriage. There are $1000$ boys standing in a row, and you have to choose one out of them. According to the rules of the game, you can interview the boys only in a sequence one by one. If the sequence is : \\ $B_1\ B_2\ B_3\ B_4\ B_5\ ....... \ B_{1000}\ $, you will first see $B_i$, only then $B_{i+1}$. You have a choice to accept or reject a boy. If you accept one, the game gets over and you tie a knot with the selected individual. If you reject a boy, you can not return back to him. He is gone forever. What should be the optimal strategy to choose as best person as possible?  
+
+\textbf{Solution:} \\
+\textit{Intuition:} Check out on some people. This will give you an idea of what the crowd is like. After getting the idea of the crowd, it will be easier to choose the best person. \\
+
+Look for the first $k$ boys. Let $B_k$ be the best among these. Reject all of these $k$ boys and keep a note of $B_k$. After k boys, as soon as you see a boy better than $B_k$, you accept. This has been shown in Figure \ref{boy}.
+
+\begin{figure}[h]
 \centering
-\vspace*{5cm}
-\par\normalfont\fontsize{35}{35}\sffamily\selectfont
-\textbf{CPSC 542F WINTER 2017}\\
-{\LARGE Convex Analysis and Optimization}\par % Book title
-\vspace*{1cm}
-{\Huge Lecture Notes}\par % Author name
-\endgroup
+\includegraphics[width=0.9\textwidth]{boys.jpg}
+\label{boy}
+\caption{The technique to choose as best boy as possible}
+\end{figure}
 
-%----------------------------------------------------------------------------------------
-%	COPYRIGHT PAGE
-%----------------------------------------------------------------------------------------
+As an intelligent reader can make out, the value of $k$ plays a significant role here. If the value of $k$ is very small, you will end up choosing an inferior quality boy, since you have not seen enough samples. If $k$ is very big, not enough boys will be left in slab 2 to take a proper decision. So, now we look at the question - What should be the value of $k$.\\
 
-\newpage
-~\vfill
-\thispagestyle{empty}
+Let $f(k)$ denote the quality of the selected boy when the first $k$ boys are employed as the sample of the entire population of available choices. We can plot a curve with $k$ on the X axis and $f(k)$ on the Y axis\footnote{Try writing a piece of code and observe how this plot looks like}. The roots of the equation $f'(k\ =0)$ give us the value of $k$ for which $f(k)$ is maximum, or in other words, we get the highest quality boy. This has been explained in detail in Algorithm \ref{dating}.
 
-%\noindent Copyright \copyright\ 2014 Andrea Hidalgo\\ % Copyright notice
+\begin{algorithm}
+\caption{The Dating Algorithm}\label{dating}
+\begin{algorithmic}[1]
+\Procedure{Dating}{}
+\State \textbf{Input}:- Array of the quality of $n$ boys $A[1,2,.....,n]$, $A[i]$ represents the quality of the $i_{th}$ boy, $k$
+\State \textbf{Output}: $A[Best]$- The quality of the solution, $Best$- The index of the selected boy.
+\State $Best\ = 0$
+\For {$i\ =\ 1\ to\ k$}
+\If {$A[Best] < A[i]$}
+\State $Best \gets i $
+\EndIf
+\EndFor
+\For {$i = k+1\ to\ n$}
+\If {$A[Best] < A[i]$}
+\State $Best \gets i$
+\State break
+\EndIf
+\EndFor
+\State return $Best$, $A[Best]$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
-\noindent \textsc{Summer Research Internship, University of Western Ontario}\\
+\subsection{Probability that Algorithm \ref{dating} fetches you the best boy}
 
-\noindent \textsc{github.com/LaurethTeX/Clustering}\\ % URL
-
-\noindent This research was done under the supervision of Dr. Pauline Barmby with the financial support of the MITACS Globalink Research Internship Award within a total of 12 weeks, from June 16th to September 5th of 2014.\\ % License information
-
-\noindent \textit{First release, August 2014} % Printing/edition date
-
-%----------------------------------------------------------------------------------------
-%	TABLE OF CONTENTS
-%----------------------------------------------------------------------------------------
-
-\chapterimage{head1.png} % Table of contents heading image
-
-\pagestyle{empty} % No headers
-
-\tableofcontents % Print the table of contents itself
-
-%\cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
-
-\pagestyle{fancy} % Print headers again
-
-%----------------------------------------------------------------------------------------
-%	CHAPTER 1
-%----------------------------------------------------------------------------------------
-
-\chapterimage{head2.png} % Chapter heading image
-\chapter{Convex Sets}
-\section{Convexity}
-\subsection{Cone}
-\begin{definition}[Cone]
-A set $K \in \R^n$, when $x \in K $ implies $\alpha x \in K$.
-\end{definition}
-A non convex cone can be hyper-plane.\\
-For convex cone $x + y \in K, \forall x,y \in K$.\\
-Cone don't need to be "pointed". e.g. \\
-Direct sums of cones $C_1 + C_2 = \{ x = x_1+x_2 | x_1 \in C_1, x_2 \in C_2 \}$.\\
-\begin{example}
-$S_1^n  \{ X | X=X^n ,\lambda(x) \ge 0\}$\\
-A matrix with positive eigenvalues.
-\end{example}
-
-\subsubsection{Operations preserving convexity}
+The algorithm fails to fetch the best boy when one of the following two events occur.
 \begin{itemize}
-\item[Intersection] $C  \cap_{i \in \mathbb{I}}C_i$
-\item[Linear map] Let $A : \mathbb{R}^n \to  \R^n$ be a linear map. If $C \in \R^n$ is convex, so is $A(C) = \{Ax \forall x \in C \}$
-\item[Inverse image] $A^{-1}(D) = \{ x \in \R |Ax \in D \}$
+\item When the best boy is in the first $k$ boys(Our sample of the crowd). It is because, according to the algorithm the first $k$ boys are rejected and hence the best boy will also be rejected.  
+\item When we pick a boy after the first $k$ boys and he is non-best. This is shown in Figure \ref{hero}. Here, we end up picking a suboptimal boy which is sandwiched between the $k+1_{th}$ location boy and the best boy. 
 \end{itemize}
 
-\subsubsection{Operations that induce convexity}
-Convex hull on $S = \cap \{C | S\in C, C is convex\}$\\
-\begin{example}
-$Co \{ x_1,x_2,\cdots,x_m\} = \{ \sum_{i=1}^m \alpha_i x_i | \alpha \in \delta_m \}$
-\end{example}
-For a convex set $x \in C \Rightarrow x = \sum \alpha_i x_i$. 
-\begin{theorem}[Carathéodory's theorem]
-If a point $x \in \R^d$ lies in the convex hull of a set $P$, there is a subset $P'$ of $P$ consisting of $d + 1$ or fewer points such that $x$ lies in the convex hull of $P'$. Equivalently, x lies in an r-simplex with vertices in P.
-\end{theorem}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{hero.jpg}
+\label{hero}
+\caption{Choosing someone who is not the best}
+\end{figure}
 
-\section{Convex Functions}
-\begin{definition}[Convex function]
-Let $C \in \R^n$ be convex, $f:C \to \R$ is convex on f if $x,y \in C \times C$. $\forall \alpha \in (0,1)$, $f(\alpha x + (1-\alpha) y) \le f(\alpha x) + f((1-\alpha) y)$
-\end{definition}
+$Pr$(Best boy is in the first $k$ locations) = $ \frac{k}{n}$, since there are $k$ ways in which the best boy can be present at any of the first $k$ locations and the total number of locations to be present at are $n$. \\
 
-\begin{definition}[Strictly Convex function]
-Let $C \in \R^n$ be convex, $f:C \to \R$ is strictly convex on f if $x,y \in C \times C$. $\forall \alpha \in (0,1)$, $f(\alpha x + (1-\alpha) y) \langle f(\alpha x) + f((1-\alpha) y)$
-\end{definition}
+We call a boy to be the pseudo-best if its quality is greater than $B_k$ and lesser than the quality of the best boy.
+ 
+For the algorithm to fetch the best boy
+\begin{enumerate}
+\item The best boy should be present after the first $k$ locations. 
+\item If the location of the best boy is $i$, no pseudo-best boy should be picked from the locations $[k+1,i-1]$.
+\end{enumerate}
 
-\begin{definition}[Strongly convex]
-$f:C \to \R$ is strongly convex with modules $u \ge 0$ if $f - \frac{1}{2}u || \cdot ||^2$ is convex.
-\end{definition}
-Interpretation: There is a convex quadratic $\frac{1}{2}u || \cdot ||^2$ that lower bounds f.
-\begin{example}
-$\min_{x \in C} f(x) \leftrightarrow \min \bar{f}(x)$
-Useful to turn this into an unconstrained problem. \\
-$$\bar{f}(x) = \begin{cases}
-f(x) \quad if x \in C \\
-\infty \quad  elsewhere
-\end{cases}$$
-\end{example}
-\begin{definition}
-A function $f : \R^n \to \R \cup \infty \ \bar{\R}$ is convex if $x,y \in \R^n \times \R^n$, $\forall x,y , \bar{f}(\alpha x + (1-\alpha) y) \le f(\alpha x) + f((1-\alpha) y)$
-\end{definition}
-Definition 1 is equivalent to definition 2 if $f(x) = \infty$.
-\begin{example}
-$f(x) = \sup_{j \in J} f_j(x)$
-\end{example}
 
-\subsection{Epigraph} 
-\begin{definition}[Epigraph]
-For $f: \R^n \rightarrow \bar{R}$, its epigraph $epi(f) \in \R^{n+1} is the set epi(f) \{ (x,\alpha) | f(x) \in \alpha \}$
-\end{definition}
-Next: a function is convex i.f.f. its epigraph is convex.
+Hence, $Pr$(We get the best boy)= $Pr$(Best boy is at the location $i$ and no pseudo-best boy is present in the location $[k+1,i-1]$ ).\\
 
-\begin{definition}
-A function $f : C \rightarrow \R, C \in \R^n$ is convex if $\forall x, y \in C$, $f(ax + (1-a)x) \le af(x) + (1-a)f(x) \quad \forall a \in (0,1)$.\\ 
-Strict convex: $x \neq y \Rightarrow f(ax + (1-a)x) \le af(x) + (1-a)f(x) $
-\end{definition}
-\begin{remark}
-$f$ is convex $\Rightarrow$ $-f$ is concave.
-\end{remark}
-Level set: $S_{\alpha}f = \{ x | f(x) \le \alpha \}$.\\ 
-$S_{\alpha}f$ is convex $\Leftrightarrow$ $f$ is convex. \\
-\begin{definition}[Strongly convex]
-$f : C \rightarrow \R$ is strongly convex with modules $\mu$ if $\forall x, y \in C$, $\forall \alpha \in (0,1)$, $f(ax + (1-a)x) \le af(x) + (1-a)f(x) - \frac{1}{2\mu}\alpha(1- \alpha) \|x-y\|^2$.
-\end{definition}
+Given a location $i$, $Pr$(Best boy is present at this location) = $1/n$. \hspace{2mm} ....(1)\\
 
-\begin{remark}
-\begin{itemize}
-\item $f$ is 2nd-differentiable, $f$ ix \cvx $\iff$ $\nabla^2f(x) \rangle  0$.
-\item $f$ is strongly \cvx $\iff$ $\nabla^2f(x) \rangle  \mu I$ $\iff$ $x \ge \mu$
-\end{itemize}
-\end{remark}
-\begin{definition}[2]
-$f : \R^n \to \bar{\R} $ is \cvx  if $x, y  \in \R , \alpha \in (0,1), f(ax + (1-a)x) \le af(x) + (1-a)f(x)$.  
-\end{definition}
-The effective domain of $f$ is $dom f = \{x | f(x) \langle + \infty \}$ 
-\begin{example}[ludcator function]
-$\delta_c(x) = \begin{cases}
-0 \quad  x \in C \\
-+ \infty \quad elsewhere
-\end{cases}$.\\
-$dom \space \delta_c(x) = C$
-\end{example}
-\begin{definition}[Epigraph]
-The epigraph of f is $epi \space f = \{(x,\alpha) | f(x) \le \alpha\}$
-\end{definition}
-The graph of $epi \space f$ is $\{ (x,f(x) | x \in dom \space f\}$.
-\begin{definition}[III]
-A function $f : \R^n \to \bar{\R}$ is %\cvx  if $\epi \space f $ is \cvx
-\end{definition}
-\begin{theorem}
-$f : \R^n \to \bar{\R}$ is \cvx  $\iff$ $\forall x,y \in \R^n, \alpha \in (0,1), f(ax + (1-a)x) \le af(x) + (1-a)f(x)$.
-\end{theorem}
-\begin{proof}
-$\Rightarrow$ take $x,y \in dom \space f$, $(x,f(x)) \in epi \space f$,$(y,f(y)) \in epi \space f$.
-\end{proof}
+$Pr$(Pseudo-best boy is not there at locations $[k+1,i-1]$) = $\frac{k}{i-1}$. \hspace{2mm} ...(2) 
 
-\begin{example}[Distance]
-Distance to a \cvx  set $d_c(x) = \inf \{ \| z-x \| | z \in C \}$. Take any two sequence $\{ y_k\} and \{ \bar{y}_k\} \subset C$ s.t. $\| y_k - x\| \to d_c(x)$, $\| \bar{y}_k - \bar{x}\| \to d_c(\bar{x})$. $z_k = \alpha y_k + (1 - \alpha) \bar{y}_k$.
-\begin{align*}
-d_c(\alpha x + (1-\alpha) \bar{x}) &\le \| z_k - \alpha x - (1 - \alpha) \bar{x}\| \\
-& = \| \alpha(y_k - x) + (1 - \alpha)(\bar{y}_k - \bar{x})\| \\
-& \le \alpha \| y_k - x\| + (1 - \alpha ) \|\bar{y}_k - \bar{x}\|
-\end{align*}
-Take $k \to \infty$, $d_c(\alpha x + (1 - \alpha) \bar{x}) \le \alpha d(x) + (1 - \alpha) d(\bar{x})$
-\end{example}
-\begin{example}[Eigenvalues]
-Let $X \in S^n := \{ n \times n symmetric matrix\}$. $\lambda_1(x) \ge \lambda_2(X) \ge \ldots \ge \lambda_n(x)$.\\
-$f_k(x) = \sum_{1}^n \lambda_i(x)$.\\
-Equivalent characterization 
+Why? Let us see.\\ 
+We now, divide the queue of boys in three slabs as shown in Figure \ref{slabs}.
 
-\begin{align*}
-f_k(x) & = \max\{ \sum_{i} v_i^T Xv_i | v_i \perp v_j , i \neq j\} \\
-& =  \max\{ tr( V^TXV | V^T V = I_k \} \\
-\max \{tr(VV^TX) \} \text{by circularity}
-\end{align*}
-Note $\langle A,B\rangle  = tr(A,B)$ is true for symmetric matrix. \\
-$\langle A,A\rangle  = |A |_F^2 = \sum_{i} A_{ii}^2$
-\end{example}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{slabs.jpg}
+\label{slabs}
+\caption{Choosing the best}
+\end{figure}
 
-\section{Support Function}
-Take a set $C \in \R^n$, not necessarily convex.The support function is $\sigma_C = \R^n \to \bar{\R}$. $\sigma_C(x) = \sum \{ \langle x,u\rangle  | u \in C\}$.
-\includegraphics[scale=0.5]{1_1.png}
-\begin{fact}
-The support function binds the supporting hyper-plane.
-\end{fact}
+$Pr$(The best boy from locations $1$ to $i-1$ is present before the location $k+1$)= $\frac{k}{i-1}$
 
-Supporting functions are
-\begin{itemize}
-\item Positively homogeneous\\
-$\sigma_C(\alpha x) = \alpha \sigma_C(x) \forall \alpha \rangle  0$ \\
-$\sigma_C(\alpha x ) = \sup_{u \in C} \langle \alpha x, u\rangle  = \alpha \sup_{u \in C} \langle x, u\rangle  = \alpha \sigma_C(x)$
-\item Sub-linear( a special case of convex, linear combination holds $\forall \alpha$.\\
-$\sigma_C(\alpha x + (1 - \alpha) y ) = \sup_{u \in C} \langle \alpha x + (1 - \alpha) y,u\rangle  \le \alpha\sup_{u \in C}\langle x,u\rangle  + (1 - \alpha)\sup_{u \in C}\langle y,u\rangle  $
-\end{itemize}
-\begin{example}[L2-norm]
-$\| x \| = \sup_{u \in C} \{ \langle x, u \rangle, u \in \R^n \}$.\\
-$\|x \|_p = \sup \{ \langle x, u \rangle, u \in B_q \}$ where $\frac{1}{p} + \frac{1}{q} = 1$. $B_q = \{ \|x \|_q \le 1\}$.\\
-The norm is 
-\begin{itemize}
-\item Positive homogeneous
-\item sub-linear
-\item If $0 \in C$, $\sigma_C$ is non-negative.
-\item If $C$ is central-symmetric, $\sigma_C(0) = 0$ and $\sigma_C(x) = \sigma_C(-x)$
-\end{itemize}
-\end{example}
+From (1) and (2), \\
+$pr$(winning when the best boy is at the location $i$) = $\frac{1}{n} \times \frac{k}{i-1}$\\
 
-\begin{fact}[Epigraph of a support function]
-$epi \space \sigma_C = \{ (x,t) | \sigma_C(x) \le t\}$.
-Suppose $(x,t) \in epi \space \sigma_C$. Take any  $\alpha > 0$. $\alpha(x,t) = (\alpha x, \alpha t)$.\\
-$\alpha \sigma_C(x) = \alpha \sigma_C(x) \le \alpha t$. $\alpha(x,c) \in epi 
-\sigma_C$\\
-\includegraphics[]{1_2}
-\end{fact}
+Now the location of the best boy can vary from $k+1$ to $n$. We have to take all these cases in account. \\
 
-\section{Operations Preserve Convexity of Functions}
-\begin{itemize}
-\item Positive affine transformation \\
-$f_1,f_2,\ldots,f_k \in \space cvx \R^n$.\\
-$f = \alpha_1 f_1 + \alpha_2 f_2 + \ldots + \alpha_k f_k$
-\item Supremum of functions. Let $\{ f_i \}_{i \in I}$ be arbitrary family of functions. If $\exists x \sup_{j \in J} f_j(x) < \infty \Leftrightarrow f(x) = \sup_{j \in J} f_j(x) $\\
-\includegraphics[]{1_3}
-\item Composition with linear map.\\
-$f \in cvx \R^n$, $A:\R^n \to \R^m$ is a linear map.
-$f \circ A (x) = f(Ax) \in cvx \R^n$\\
-\begin{align*}
-f \circ A (x) & = f(A(\alpha x + (1-\alpha) y)) \\
-& = f(A \alpha x + (1-\alpha) A y) \\
-& \le \alpha f(Ax) + (a - \alpha) f(Ay)
-\end{align*}
-\end{itemize}
+$Pr$(We end up choosing the best boy)= $\sum_{i=k+1}^n \frac{1}{n} \times \frac{k}{i-1}$\\
+
+= $\frac{k}{n} \sum_{i=k+1}^n \frac{1}{i-1}$\\
+
+= $\frac{k}{n} \sum_{i=k}^{n-1} \frac{1}{i}$\\
+
+= $\frac{k}{n} \int_{k}^{n} \frac{1}{i} di$ (we replaced $n-1$ by $n$ assuming $n$ is a very large number)\\
+
+= $\frac{k}{n}|log\ i|_{k}^{n}$\\
+
+=$\frac{k}{n} (log\ n - log\ k)$\\
+
+\[
+ \boxed{f(k)\ =\ \frac{k}{n} (log\ n - log\ k)}
+ \]
+ 
+ Differentiating \\
+ 
+ $f'(k)=\ \frac{1}{n} (log\ n\ -\ log\ k) + \frac{k}{n} \times \frac{-1}{k}$\\
+ 
+ Equate to $0$. \\
+ 
+ $\frac{1}{n} (log\ n\ -\ log\ k) + \frac{k}{n} \times \frac{-1}{k}\ =0$\\
+ 
+ $ (log\ n\ -\ log\ k\ -\ 1\ = 0)$\\
+ 
+ or, $log\ n\ -\ log_e\ e\ =\ log\ k$\\
+ 
+ or, $log\ \frac{n}{e}\ =\ log\ k$\\
+ 
+ or, 
+\[
+ \boxed{k=\ \frac{n}{e}}
+ \]
+
 
 \end{document}
+
