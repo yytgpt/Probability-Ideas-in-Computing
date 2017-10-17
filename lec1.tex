@@ -1,10 +1,11 @@
 %harihiom
-\documentclass{llncs}
+\documentclass{book}
 
 \usepackage[english]{babel}
 %\usepackage[utf8]{inputenc}
 %\usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{comment}
 \usepackage{float}
 %\usepackage{wrapfig}
 %\usepackage{titlepic}
@@ -23,7 +24,6 @@
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{gensymb}
-\usepackage{natbib}
 \usepackage{url}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
@@ -45,186 +45,156 @@
 %\newtheorem{theorem}{Theorem}
 %\newtheorem{lemma}{Lemma}
 
-\title{Lecture - 1}
-\author{Thursday, 28 July 2016 (15:20 - 16:10)}
-
-
-\institute{Puzzles : Monty Hall Show, Coin Tossing Game}
+\title{Probability Ideas in Computing}
 
 \begin{document}
 \maketitle
-\section{The Monty Hall Show}
+\chapter{The Monty Hall Show}
+The Monty Hall problem is an interesting basic probability brainteaser, named after the host (Monty Hall) of an American television reality show `Let's Make a Deal'. The problem was introduced by the American Statistician Steve Selvin, in his letter to the peer reviewed journal `American Statistician' \cite{selvin1975problem}. Before visiting the problem, let us understand a simpler basic probability scenario.  \\
 
-The Monty Hall problem is based on the American reality show - ``Let's make a deal'' and is named after its host, Monty Hall. \\
+\section{A Simple Scenario}
+Assume you are the contestant of a reality show, presented with $3$ doors in front of you. Behind every door is exactly one out of the three items, $2$ goats and a BMW car. Being a contestant, you do not know the item each door hides. You are asked to choose any one of these $3$ doors and are gifted with the item the chosen door hides. Visibly, you are considered a winner if you choose the door hiding the BMW. Our basic knowledge of probability quickly tells us that \textit{the probability of winning = $1/3$ and probability of losing = $2/3$.}\\
 
-Before explaining the Monty Hall game, let us understand a simpler scenario. Assume you are the contestant of a reality show. On the stage, there are $3$ doors present in front of you. Out of these $3$ doors, $1$ door contains BMW car and rest of the two doors contain goats. You as a contestant do not know what is hidden inside these gates. You are asked to choose one gate and you get what is hidden inside the gate. Obviously, you are considered to win if and only if you choose the gate hiding the BMW car.  
+\section{The Monty Hall Scenario}
+Our smart statistician Steve now enters the scene, bringing a new twist to the scenario. First, he asks us to choose one door, absolutely similar to the simpler scenario discussed above. Again, similar to the simpler scenario, we choose one of the gates randomly. Now, out of the remaining two doors (not chosen by us), Steve opens the one hiding a goat\footnote{Steve knows which door hides what. That's why he is capable of opening a door which has a goat hidden.}. Since, there are two doors hiding goats; definitely, there is at least one goat hidden in the non chosen doors. Next, we are offered a chance to swap our choice and choose the third door which is unopened (previously not chosen by us). 
+The question of interest is : \textbf{Should we swap our choice?} Do you think swapping makes any difference to our probability of winning? Refer Figure \ref{monty}. \\
 
-In this simple scenario, probability of winning = $1/3$ and probability of losing = $2/3$.\\
-
-\textbf{Now, we introduce the Monty Hall problem which brings in a twist to this simple scenario.}\\
-
-Monty Hall is now the smart anchor of our show and enters the scene. He asks you to choose one door, similar to the previous case. You choose any one of the gates as in the previous case. But before declaring the result, Monty shows you the one gate hiding a goat out of the two gates which you have not chosen\footnote{Monty knows which door has what. That's why he is capable of opening a door which has a goat hidden.}. Since, there are two doors hiding goats, there is definitely at least one goat in the gates which you have not chosen. Now, you are given an option to swap your choice and choose the third gate which is unopened and previously not chosen by you. This has been shown in Figure \ref{monty} \\
-
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.5\textwidth]{monty.png}
-\caption{The Monty Hall Game}
+\caption{\textbf{The Monty Hall Game}: Assume we have previously chosen door $1$. Now, Steve shows us a goat hidden in gate $3$. Next, we are presented with a posssibility of switching to door $2$.}
 \label{monty}
 \end{figure}
 
-\textit{SHOULD YOU SWAP YOUR CHOICE AND GO WITH THIS THIRD GATE OR IT DOES NOT MATTER? Do you think swapping makes any difference to your probability of winning?}
+It appears that switching should not make any difference to our probability of winning. But to our surprise, the answer to this seemingly simple puzzle is : {\large{\textbf{We should always swap.}}} Swapping increases our chances of winning. 
 
-Let us consider the two cases, one where you swap and the other where you do not swap. \\
+\section{Swapping Increases the Chances of Winning}
 
-\textbf{Case 1}:\textit{ You do not swap}: So, you have chosen one door and after knowing which of the other two doors has a goat, you do not swap your choice. So, this extra knowledge does not matter to your answer.
-Hence, Probability (Win) = 1/3 and Probability (Losing) = 2/3
+Before discussing the reasoning behind the stated solution in detail, let us discuss a small intuition for this seemingly non trivial solution. 
 
-\textbf{Case 2:} \textit{You swap:}\\ 
-\textit{Case 2.a :} You have initially chosen a door containing a goat.\\ 
-Probability (You have chosen a door containing goat) = $2/3$. Now Monty shows you the other door having a goat. So, when you swap, you definitely pick the door having BMW. Hence, your probability of winning = $2/3$.\\
+\subsection{Proof idea}
+It might appear to a reader that since one door hiding a goat has been opened by Steve, there are $2$ doors left - one with a BMW and another with a goat. The probability of BMW being in any of these doors is $1/2$. Hence, swapping or not swapping should not make any difference to our probability of winning. 
 
-\textit{Case 2.b : }You have initially chosen the door containing BMW.\\ 
-Probability (You have chosen the door containing BMW) = $1/3$. Now Monty shows you the other door having a goat. So, when you swap, you definitely pick the door having another goat. Hence, your probability of losing= $1/3$.\\
+Now, carefully observe that when we initially choose a door (without having any additional knowledge), our probability of choosing a door with a goat was $2/3$. Hence, there is a greater chance that the door we are currently standing with holds a goat. Steve has now shown us another door hiding a goat. Hence, it is advisable to swap our choice since that increases our probability of choosing the door hiding a BMW. 
 
-Hence, we see that swapping the gates results in the swapping of the probabilities of winning and losing thereby making win more likely. \\
+\subsection{Proof} 
 
-\textbf{Case 3:} \textit{You swap with a probability $p$:}\\
+Let us consider two cases; first where we swap the chosen door and another, where we don't. 
+
+\subsubsection{Case 1 : We do not swap}
+We choose one door randomly. Hence, the probability of choosing a goat is $2/3$ and that of choosing a BMW is  $1/3$. Next, Steve opens one of the doors hiding a goat. But, we have decided not to swap. Hence, the extra knowledge Steve just now revealed does not matter to us. Hence, our probability of winning is $1/3$ and that of losing is $2/3$.
+
+\subsubsection{Case 2 : We swap}
+We choose one door randomly. Hence, the probability of choosing a goat is $2/3$ and that of choosing a BMW is  $1/3$. Next, Steve opens one of the doors hiding a goat. we have decided to swap. Please note that if we have initially chosen a BMW, we will end up choosing a goat and vice versa. Hence, our probability of winning now depends on what we have chosen previously. There are two possible cases here, discussed below. 
+
+\textbf{\textit{Case 2(a) :}} We have initially chosen a door containing a goat.\\ 
+Probability (we have chosen a door containing a goat) = $2/3$. Now Steve shows us the other door having a goat. So, when we swap, we definitely pick the door hiding the BMW. Hence, our probability of winning = $2/3$. \\
+
+\textbf{\textit{Case 2(b) : }}We have initially chosen the door containing BMW.\\ 
+Probability (we have chosen the door containing BMW) = $1/3$. Now Steve shows us the other door having a goat. So, when we swap, we definitely pick the door having another goat. Hence, our probability of losing= $1/3$.\\
+
+Hence, swapping the choice swaps our probabilities of winning and losing the game discussed in the basic scenario. So, we must always consider swapping.
+
+\section{Generalisation of the puzzle}
+
+Next, we generalise the puzzle. A player might consider swapping her choice with certain probability. Assume that a player decides to switch her choice with a probability $p$. What are the chances of winning and losing the game in this genaralised scenario?
 
 Consider Figure \ref{modi}
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{goat.jpg}
-\caption{Modified Monty Hall Problem}
+\includegraphics[width=0.7\textwidth]{goat.jpg}
+\caption{Generalisation of Monty Hall Problem}
 \label{modi}
 \end{figure}
 
-It can be seen that the player wins if she initially chooses goat and then swap, or initially chooses car and then do not swap.\\
+A keen reader would have observed by now that there are $2$ ways of winning the game.
+\begin{itemize}
+\item We initially choose the gate hiding a goat and later swap our choice. 
+\item We initially choose the door hiding the BMW and later do not swap.
+\end{itemize}
 
-Hence, the probability of winning = $\frac{2}{3} \times p\ +\ \frac{1}{3} \times (1-p)$\\
-
-= $\frac{1}{3}p + \frac{1}{3}$\\
-
+Hence, by the basic principles of probability, $Pr(Winning)$= $\frac{2}{3} \times p\ +\ \frac{1}{3} \times (1-p)$
+= $\frac{1}{3}p + \frac{1}{3}$
 = $\frac{1+p}{3}$
 
-Similarly, player loses if she initially chooses goat and do not swap or if she initially chooses car and then swap. \\
+In a similar way, there are two ways in which we can lose the game.
+\begin{itemize}
+\item We initially choose the gate hiding a BMW and later swap our choice. 
+\item We initially choose the door hiding the goat and later do not swap.
+\end{itemize}
 
-Hence, the probability of losing= $\frac{2}{3} \times (1-p)\ +\ \frac{1}{3} \times p$
-
+Again, by the basic principles of probability, $Pr(Losing)$= $\frac{1}{3} \times p\ +\ \frac{2}{3} \times (1-p)$
 = $\frac{2}{3} - \frac{1}{3}p$
+= $\frac{2-p}{3}$
 
-= $\frac{2-p}{3}$ 
+The probability of losing the game can also be simply calculated as $Pr(Losing)\ =\ 1-Pr(Winning)$.
 
-\section{The Coin Tossing Game}
-\textbf{The Game}: In a contest, a participant tosses a coin. If the coin shows up tail, an amount of $100$ \$ is placed on the table in front of him, and he continues tossing. If the coin shows up a head, an amount of $100$ \$ is kept on the same table and then all the money kept on the table is given to the participant concluding the game. It can be seen that the participant wins a cash amount of $100 \times number\ of\ coins\ tossed$. \\
-
-\textbf{Question:} What is the expected value of cash price won by the participant?\\
-
-\textbf{Answer}: 
-Let $X$ be a random variable which counts the number of times the coin is tossed.\\
-
-We know that $X$ can take the values 1, 2, 3, 4.......\\
-$E[X]\ =\ 1 \times pr(X=1) + 2 \times pr(X=2) + 3 \times pr(X=3)+ .... $\\
-
-= $\sum_{i=1}^{\infty} i \times pr(X=i) $\\
-
-Since, $ pr(X=i) $ = $(1/2)^i$\\
-
-Hence, $E[X]\ = \sum_{i=1}^{\infty} i/2^{n} $\\
-
-= $1/2+(2/2^2)+(3/2^3)+(4/2^4)+.....\ =\ \alpha$, say\\
-
-Now, $\alpha = 1/2+(2/2^2)+(3/2^3)+(4/2^4)+.....$ \hspace{5mm} ........(1)\\
-
-$\alpha/2 = (1/2^2)+(2/2^3)+(3/2^4)+.....$\hspace{5mm} ........(2)\\
-
-Subtracting equation (2) from equation (1) \\
-
-$\alpha/2= (1/2)+(1/2^2)+(1/2^3)+.....$\\
-
-It can be seen that the above expression is a geometric progression $a,ar,ar^2,ar^3......$, with $a=1$ and $r=1/2$.\\
-
-We know that the sum of an infinite Geometric Progression = $\frac{a}{1-r}$ = $\frac{1/2}{1-1/2}$ (in this case) = $1$. \\
-
-Hence, $\alpha/2\ = 1$\\
-
-$\alpha=2$\\
-
-$E[X]=2$\\  	\hspace{5mm} ........(3)
-
-So, the expected amount of money won by the participant = $2 \times 100$ \$ = $200$ \$.\\
-
-Now, we know that the expected amount of money won by the participant is $200$ \$. But, the standard deviation of the amount of money won (or the number of coin tosses done) can be very large\footnote{When the game is actually played, the participant can win $100$ \$ in one case, yet $500$ \$ in other case, yet $10000$ \$ in other case.}. Hence, it is important to look at the standard deviation of the random variable $X$, in addition to its expected value.\\
-
-The formula for Standard Deviation, $\sigma(X)$, is given as :\\ 
-
-$\sigma(X)$= $ \sqrt{(E[X- \mu])^2} $, where $\mu = E[X]$\\
+\textbf{We can easily note that the probability of winning can be maximised by choosing $p=1$, i.e., always swapping our choice.}
 
 
-= $ \sqrt{E[X^2 - 2 X \mu + \mu ^ 2]} $\\
+\section{Introduction to Random Variables}
 
-= $ \sqrt{E[X^2 ]- 2 E[X] \mu + E[\mu ^ 2]} $\\
+The usage of random variables is at the heart of probaility and statistics. Random variables are very tightly coupled with random experiments and allow an easy quantification of their outcomes. 
 
-= $ \sqrt{E[X^2 ]- 2 \mu^2 + \mu ^ 2} $\\
+\subsection{Definition}
+A random variable can be defined as a function which maps the outcomes of a random experiment to numbers (typically real numbers). They can be defined as per our convinience. For example, consider the random experiment of tossing a coin. So, there are two possible outcomes of this experiment, getting a head and getting a tail. Now, a random variable can be used to associate a number with each of these outcomes as shown below. 
+\[
+X = \left\{\def\arraystretch{1.2}%
+\begin{array}{@{}c@{\quad}l@{}}
+19 & \text{if the coin shows up head}\\
+10 & \text{if the coin shows up tail}\\
+\end{array}\right.
+\]\\
 
-= $ \sqrt{E[X^2 ]- \mu ^ 2} $\\
-
-= $ \sqrt{E[X^2 ]- (E[X]) ^ 2} $\\
-
-Hence, $\sigma(X)$=  $ \sqrt{E[X^2 ]- (E[X]) ^ 2} $	(4)\\
-
-$X^2$ is also a random variable, which takes the values $1^2, 2^2, 3^2, 4^2..........$\\
-
-$Pr(X^2=1^2) = Pr(X=1) = 1/2$\\
-
-$Pr(X^2=2^2) = Pr(X=2) = 1/2^2$\\
-
-... and so on \\
-
-According the the expectation formula, $E[X^2] = 1^2 \times \frac{1}{2} + 2^2 \times \frac{1}{2^2} + 3^2 \times \frac{1}{2^3} + ............  $ = $\alpha$ say\\
-
-$\alpha\ =\ \frac{1^2}{2^1} + \frac{2^2}{2^2} + \frac{3^2}{2^3} + \frac{4^2}{2^4} + .... $   \hspace{5mm} ........(5) \\	
-
-
-$\alpha/2\ =\ \frac{1^2}{2^2} + \frac{2^2}{2^3} + \frac{3^2}{2^4} + \frac{4^2}{2^5} + .... $   \hspace{5mm} ........(6)  \\
-
-Subtracting equation (6) from equation (5)\\
-
-$\alpha/2\ =\ \frac{1^2}{2^1} + \frac{2^2-1^2}{2^2} + \frac{3^2-2^2}{2^3} + \frac{4^2-3^2}{2^4} + .... $    \\
-
-
-or, $\alpha/2\ =\ \frac{1^2}{2^1} + \frac{(2+1)(2-1)}{2^2} + \frac{(3+2)(3-2)}{2^3} + \frac{(4+3)(4-3)}{2^4} + .... $    \\
-
-
-or, $\alpha/2\ =\ \frac{1}{2^1} + \frac{3}{2^2} + \frac{5}{2^3} + \frac{7}{2^4} + .... $     \hspace{5mm} ........(7)\\	
-
-Dividing equation (7) by equation (2)\\
-
- or, $\alpha/4\ =\ \frac{1}{2^2} + \frac{3}{2^3} + \frac{5}{2^4} + \frac{7}{2^5} + .... $  \hspace{5mm} ........(8)\\
+As a matter of fact, we could have used any two numbers instead of $19$ and $10$. Other interesting ways of defining random variables are:
  
- Subtracting equation (8) from equation (7)\\
- 
-$\alpha/4\ =\ \frac{1}{2} + \frac{2}{2^2} + \frac{2}{2^3} + \frac{2}{2^4} + .... $\\
+\subsubsection{Tossing a coin multiple times and counting the occurences of head}
+Toss a coin $100$ times and define the random variable $Y$ to be the number of times the coin shows up head. A keen reader would have observed that the range from which $Y$ can take values is $\{0,1,2,...,99,100\}$. 
 
-or, $\alpha/4\ =\ 1 + \frac{1}{2^2} + \frac{1}{2^3} + \frac{1}{2^4} + .. $\\ 
+\subsubsection{Rolling a die $10$ times and adding up the appeared numbers}
+Roll a die $10$ times and define the random variable $Z$ to be the sum of the numbers which have appeared. Here, the range from which $Z$ takes values is $\{10,11,..............,60\}$. 
 
-or, $\alpha/4\ =\frac{3}{2}$, (applying the formula for sum of Geometric Progression)\\
+\subsection{Expected Value of a Random Variable}
+The expected value of a random variable indicates its average value. For example, consider the random variable $X$ defined as follows. \\
+Assume we toss a coin once. Head results in a payoff of $100$ points while tail offers no points. In this case, \\
+\[
+X = \left\{\def\arraystretch{1.2}%
+\begin{array}{@{}c@{\quad}l@{}}
+100 & \text{if the coin shows up head}\\
+0 & \text{if the coin shows up tail}\\
+\end{array}\right.
+\]\\
 
-$\alpha = 6$, \\
+We know by intuition that if we repeat this experiment again and again; once in two tosses, we will get a head (hence $100$ points). So, the expected value of $X$ is $50$ \footnote{Practically speaking, winning $50$ points is not possible because one can either win $100$ points or no point. But please note that we are talking about the expected value (on an average how much do you win?). This has been elaborated further in the case of Monty Hall problem in the upcoming section. }. Next, we define this notation of expected value rigorously. 
 
-$E[X^2]=6$	\hspace{5mm} ........(9)\\
+\textbf{Consider a random variable {\textcolor{blue}{$X$}} which can take the values {\textcolor{blue}{$x_1, x_2, ...., x_n$}} with probabilities {\textcolor{blue}{$p_1,p_2,...,p_n$}} respectively. Then the expected value of {\textcolor{blue}{$X$, $E[X]=x_1 \times p_1 + x_2 \times p_2 + ... + x_n \times p_n = \sum_{i=1}^{n} x_i p_i$}}.}\\
 
-Substituting equation (3) and equation (9) in equation (4), \\
+For the example discussed above, the expected number of points one wins, can simply be calculated as, $E[X] = 100 \times 0.5 + 0 \times 0.5$ = $50$ points. However, the expressions for calculating the expected values of random variables $Y$ and $Z$ gets dirtier. We will visit those expressions in the next chapter.   
 
-$\sigma(X)$=  $ \sqrt{6- 2 ^ 2} $\\
 
-= $\sqrt{2}$\\
+\section{Random Variables and Monty Hall Problem}
+Being acquainted with the definition of random variables, we can now define a random variable $X$ for the Monty Hall Problem. Let $X$ be defined as follows.\\
+\[
+X = \left\{\def\arraystretch{1.2}%
+\begin{array}{@{}c@{\quad}l@{}}
+100 & \text{if we choose the door hiding a car}\\
+0 & \text{if we choose a door hiding a goat}\\
+\end{array}\right.
+\]\\
 
-	
-\textbf{Brain Teasers}
-\begin{enumerate}
-\item State whether series is convergent $\sum_{n=1}^{\infty} n/2^{n} $
-\item State whether the series is convergent $\sum_{n=1}^{\infty} 1/n$ 
-\end{enumerate}
+This means that we get $100$ points on winning a car and winning a goat offers nothing. Recall the basic scenario we discussed before Monty Hall problem (without the opportunity of switching). In that case, the expected amount of money one wins is, $E[X] = 100(1/3) + 0 (2/3) = 100/3$, which can also be interpreted in the following two ways. 
 
+\begin{itemize}
+\item If we play the game once, there is a $33.3\%$ chance that we will win. 
+\item If we play the game again and again, we will win once in three times. 
+\end{itemize}
+
+Now consider the Monty Hall scenario where we are allowed switching our door after Steve shows us one hidden goat. We have seen that the probabilities of winning and losing gets swapped when one switches her choice. In that case, $E[X'] = 100(2/3) + 0 (1/3) = 200/3$, which means that there is a $66.6\%$ chance of winning. 
+
+One can also extend this terminology for the generalised case of Monty Hall problem where switching was done with probability $p$ and obtain the result $E[X'']=100(1+p)/3$.
+
+
+\bibliographystyle{plain}
+\bibliography{book}
 
 \end{document}
