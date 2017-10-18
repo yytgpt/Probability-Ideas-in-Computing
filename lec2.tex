@@ -50,117 +50,162 @@
 \begin{document}
 %\maketitle
 \chapter{The Coin Tossing Game}
-\textbf{The Game}: In a contest, a participant tosses a coin. If the coin shows up tail, an amount of $100$ \$ is placed on the table in front of him, and he continues tossing. If the coin shows up a head, an amount of $100$ \$ is kept on the same table and then all the money kept on the table is given to the participant concluding the game. It can be seen that the participant wins a cash amount of $100 \times number\ of\ coins\ tossed$. \\
 
-\textbf{Question:} What is the expected value of cash price won by the participant?\\
+\begin{comment}
+We start this chapter with a coin tossing game, left incomplete in the previous chapter. We toss a coin $100$ times and want to calculate the expected number of times head turns up. We have discussed the notion of random variables in the previous chapter. We will be using the same notion for solving this problem. It can be done in two ways as discussed below.
 
-\textbf{Answer}: 
-Let $X$ be a random variable which counts the number of times the coin is tossed.\\
+\subsection{Case 1}
+Let $X$ be a random variable which denotes the number of times head appears when we toss the coin $100$ times. We know that the range of numbers $X$ can take values from is $\{0, 1, 2, ..., 99, 100\}$. We also know that $E[X]= \sum_{i=0}^{100} i P(i)$, where $P(i)$ is the probability of getting $i$ heads when the coin is tossed $100$ times. A basic knowledge of probabiility and combinatorics tell us that $P(i) = \binom{100}{i} {(\frac{1}{2})}^i$. Hence, $E[X]= \sum_{i=0}^{100} i P(i) = 0 \binom{100}{0} {(\frac{1}{2})}^0 + 1 \binom{100}{1} {(\frac{1}{2})}^1 + ... + 100 \binom{100}{100} {(\frac{1}{2})}^{100} $. Solving this complicated equation gives us the answer $E[X]=50$. However, there is another easier way of finding $E[X]$ with the help of indicator random variables. 
 
-We know that $X$ can take the values 1, 2, 3, 4.......\\
-$E[X]\ =\ 1 \times pr(X=1) + 2 \times pr(X=2) + 3 \times pr(X=3)+ .... $\\
+An indicator random variable is a binary random variable which takes only two values $0$ and $1$. We can model the above problem in a similar way using the concept of indicator random variables. We associate an indicator random variable $Y_i$ with each coin toss. The first coin toss is associated with $Y_1$, second with $Y_2$, so on and so forth.  
+\[
+Y_i = \left\{\def\arraystretch{1.2}%
+\begin{array}{@{}c@{\quad}l@{}}
+1 & \text{if the coin shows up head in $i_{th}$ coin toss}\\
+0 & \text{if the coin shows up tail}\\
+\end{array}\right.
+\]\\
+\end{comment}
 
-= $\sum_{i=1}^{\infty} i \times pr(X=i) $\\
+Consider a contest in which the participant is asked to toss a coin repeatedly. If the coin shows up tail, the participant is awarded an amount of $100$\$ and tossing is continued. As soon as the coin shows up a head, the participant is awarded an amount of $100$\$ and the game ends. One can observe that the participant wins a cash amount of $100 \times$ (number of times the coin is tossed). We aim at finding the expected value of cash price won by the participant.
 
-Since, $ pr(X=i) $ = $(1/2)^i$\\
+\section{Expected Value}
+Let $X$ be a random variable which counts the number of times the coin is tossed.
+We know that $X$ can take any value $\geq 1$.
+\begin{equation}
+E[X]\ =\ 1 \times pr(X=1) + 2 \times pr(X=2) + 3 \times pr(X=3)+ ... 
+\end{equation}
 
-Hence, $E[X]\ = \sum_{i=1}^{\infty} i/2^{n} $\\
-
-= $1/2+(2/2^2)+(3/2^3)+(4/2^4)+.....\ =\ \alpha$, say\\
-
-Now, $\alpha = 1/2+(2/2^2)+(3/2^3)+(4/2^4)+.....$ \hspace{5mm} ........(1)\\
-
-$\alpha/2 = (1/2^2)+(2/2^3)+(3/2^4)+.....$\hspace{5mm} ........(2)\\
-
-Subtracting equation (2) from equation (1) \\
-
-$\alpha/2= (1/2)+(1/2^2)+(1/2^3)+.....$\\
-
-It can be seen that the above expression is a geometric progression $a,ar,ar^2,ar^3......$, with $a=1$ and $r=1/2$.\\
-
-We know that the sum of an infinite Geometric Progression = $\frac{a}{1-r}$ = $\frac{1/2}{1-1/2}$ (in this case) = $1$. \\
-
-Hence, $\alpha/2\ = 1$\\
-
-$\alpha=2$\\
-
-$E[X]=2$\\  	\hspace{5mm} ........(3)
-
-So, the expected amount of money won by the participant = $2 \times 100$ \$ = $200$ \$.\\
-
-Now, we know that the expected amount of money won by the participant is $200$ \$. But, the standard deviation of the amount of money won (or the number of coin tosses done) can be very large\footnote{When the game is actually played, the participant can win $100$ \$ in one case, yet $500$ \$ in other case, yet $10000$ \$ in other case.}. Hence, it is important to look at the standard deviation of the random variable $X$, in addition to its expected value.\\
-
-The formula for Standard Deviation, $\sigma(X)$, is given as :\\ 
-
-$\sigma(X)$= $ \sqrt{(E[X- \mu])^2} $, where $\mu = E[X]$\\
+\begin{equation}
+\text{Since, } pr(X=i)  = (1/2)^i 
+\end{equation}
 
 
-= $ \sqrt{E[X^2 - 2 X \mu + \mu ^ 2]} $\\
 
-= $ \sqrt{E[X^2 ]- 2 E[X] \mu + E[\mu ^ 2]} $\\
+\begin{equation}\label{eq1}
+ \text{Hence, }E[X]\ = 1/2+(2/2^2)+(3/2^3)+(4/2^4)+...
+\end{equation}
 
-= $ \sqrt{E[X^2 ]- 2 \mu^2 + \mu ^ 2} $\\
-
-= $ \sqrt{E[X^2 ]- \mu ^ 2} $\\
-
-= $ \sqrt{E[X^2 ]- (E[X]) ^ 2} $\\
-
-Hence, $\sigma(X)$=  $ \sqrt{E[X^2 ]- (E[X]) ^ 2} $	(4)\\
-
-$X^2$ is also a random variable, which takes the values $1^2, 2^2, 3^2, 4^2..........$\\
-
-$Pr(X^2=1^2) = Pr(X=1) = 1/2$\\
-
-$Pr(X^2=2^2) = Pr(X=2) = 1/2^2$\\
-
-... and so on \\
-
-According the the expectation formula, $E[X^2] = 1^2 \times \frac{1}{2} + 2^2 \times \frac{1}{2^2} + 3^2 \times \frac{1}{2^3} + ............  $ = $\alpha$ say\\
-
-$\alpha\ =\ \frac{1^2}{2^1} + \frac{2^2}{2^2} + \frac{3^2}{2^3} + \frac{4^2}{2^4} + .... $   \hspace{5mm} ........(5) \\	
+\begin{equation}\label{eq2}
+ \frac{E[X]}{2}\ = (1/2^2)+(2/2^3)+(3/2^4)+...
+\end{equation}
 
 
-$\alpha/2\ =\ \frac{1^2}{2^2} + \frac{2^2}{2^3} + \frac{3^2}{2^4} + \frac{4^2}{2^5} + .... $   \hspace{5mm} ........(6)  \\
+\begin{center}
+Subtracting equation \ref{eq2} from equation \ref{eq1},
+\end{center}
 
-Subtracting equation (6) from equation (5)\\
-
-$\alpha/2\ =\ \frac{1^2}{2^1} + \frac{2^2-1^2}{2^2} + \frac{3^2-2^2}{2^3} + \frac{4^2-3^2}{2^4} + .... $    \\
-
-
-or, $\alpha/2\ =\ \frac{1^2}{2^1} + \frac{(2+1)(2-1)}{2^2} + \frac{(3+2)(3-2)}{2^3} + \frac{(4+3)(4-3)}{2^4} + .... $    \\
+\begin{equation}\label{eq3}
+ \frac{E[X]}{2}\ = (1/2)+(1/2^2)+(1/2^3)+...
+\end{equation}
 
 
-or, $\alpha/2\ =\ \frac{1}{2^1} + \frac{3}{2^2} + \frac{5}{2^3} + \frac{7}{2^4} + .... $     \hspace{5mm} ........(7)\\	
+It can be seen that the above expression is a geometric progression $a,ar,ar^2,ar^3......$, with $a=1$ and $r=1/2$. The sum of this geometric progression = $\frac{a}{1-r}$. Hence,
 
-Dividing equation (7) by equation (2)\\
+\begin{equation}\label{eq4}
+ \frac{E[X]}{2}\ = \frac{1/2}{1-1/2} = 1
+\end{equation}
 
- or, $\alpha/4\ =\ \frac{1}{2^2} + \frac{3}{2^3} + \frac{5}{2^4} + \frac{7}{2^5} + .... $  \hspace{5mm} ........(8)\\
- 
- Subtracting equation (8) from equation (7)\\
- 
-$\alpha/4\ =\ \frac{1}{2} + \frac{2}{2^2} + \frac{2}{2^3} + \frac{2}{2^4} + .... $\\
+\begin{center}
+\boxed{E[X]=2}
+\end{center}
 
-or, $\alpha/4\ =\ 1 + \frac{1}{2^2} + \frac{1}{2^3} + \frac{1}{2^4} + .. $\\ 
+Since the expected number of tosses is $2$, the expected amount of money won by the participant = $2 \times 100$\$ = $200$\$.\\
 
-or, $\alpha/4\ =\frac{3}{2}$, (applying the formula for sum of Geometric Progression)\\
+\section{Standard Deviation}
 
-$\alpha = 6$, \\
+The above analysis have shown us that; on an average, a player wins $200$\$. But that does not guarantee us winning $200$\$ every time we play the game. We can win $100$\$ in some case, $500$\$ in some other case, $1000$\$ in yet another case. However, winning $1000$\$ seems improbable as compared to winning $300$\$ or $400$\$. This is known as deviation. Although the average cash prize won is $200$\$, there can be deviation from this average value when we play the game multiple times. Small deviation from the average offers more certainty about the outcome and vice versa. Hence, it is important to look at the standard deviation of the random variable $X$, in addition to its expected value. The formula for Standard Deviation, $\sigma(X)=  \sqrt{(E[X- \mu])^2} $, where $\mu = E[X]$.
 
-$E[X^2]=6$	\hspace{5mm} ........(9)\\
 
-Substituting equation (3) and equation (9) in equation (4), \\
+$\sigma(X)= \sqrt{E[X^2 - 2 X \mu + \mu ^ 2]} = \sqrt{E[X^2 ]- 2 E[X] \mu + E[\mu ^ 2]}= \sqrt{E[X^2 ]- 2 \mu^2 + \mu ^ 2} = \sqrt{E[X^2 ]- \mu ^ 2}= \sqrt{E[X^2 ]- (E[X]) ^ 2}$
 
-$\sigma(X)$=  $ \sqrt{6- 2 ^ 2} $\\
+\begin{equation}
+\boxed{\sigma(X)=   \sqrt{E[X^2 ]- (E[X]) ^ 2}}
+\end{equation}
 
-= $\sqrt{2}$\\
+We know that $E[X]=2$ but we do not know $E[X^2]$. Please note that $X^2$ is also a random variable, which takes the values $1^2, 2^2, 3^2, 4^2...$ and so on. This is simply because $X \in \{1, 2, 3...\}$. Hence, $X^2 \in \{1^2, 2^2, 3^2...\}$. Also, when $X=i$, $X^2=i^2$. Hence, $Pr(X^2=i^2) = Pr(X=i)$.
 
+\begin{equation}
+E[X^2] = 1^2\ pr(X^2=1^2) + 2^2\ pr(X^2=2^2) + 3^2\ pr(X^2=3^2) + ... 
+\end{equation}
+
+\begin{center}
+$=1^2\ pr(X=1) + 2^2\ pr(X=2) + 3^2\ pr(X=3) + ... $
+\end{center}
+
+\begin{center}
+$ = 1^2 \times \frac{1}{2} + 2^2 \times \frac{1}{2^2} + 3^2 \times \frac{1}{2^3} + ... $ 
+\end{center}
+
+\begin{equation}\label{std5}
+E[X^2]=\ \frac{1^2}{2^1} + \frac{2^2}{2^2} + \frac{3^2}{2^3} + \frac{4^2}{2^4} + ...
+\end{equation}
+
+Dividing equation \ref{std5} by $2$,
+
+\begin{equation}\label{std6}
+\frac{E[X^2]}{2}=\ \frac{1^2}{2^2} + \frac{2^2}{2^3} + \frac{3^2}{2^4} + \frac{4^2}{2^5} + ...
+\end{equation}
+
+Subtracting equation \ref{std6} from equation \ref{std5}\\
+
+\begin{center}
+   $E[X^2]/2\ =\ \frac{1^2}{2^1} + \frac{2^2-1^2}{2^2} + \frac{3^2-2^2}{2^3} + \frac{4^2-3^2}{2^4} + ...$ 
+   \end{center}   
+
+
+\begin{center}
+    $=\ \frac{1^2}{2^1} + \frac{(2+1)(2-1)}{2^2} + \frac{(3+2)(3-2)}{2^3} + \frac{(4+3)(4-3)}{2^4} + ... $
+    \end{center}    
+
+\begin{equation}\label{std7}
+\text{or,} \frac{E[X^2]}{2}=\ \frac{1}{2^1} + \frac{3}{2^2} + \frac{5}{2^3} + \frac{7}{2^4} + ...
+\end{equation}
 	
+
+Dividing equation \ref{std7} by $2$
+
+\begin{equation}\label{std8}
+\frac{E[X^2]}{4}=\ \frac{1}{2^2} + \frac{3}{2^3} + \frac{5}{2^4} + \frac{7}{2^5} + ...
+\end{equation}
+
+ 
+ Subtracting equation \ref{std8} from equation \ref{std7}
+ 
+\begin{equation}
+\frac{E[X^2]}{4}\ =\ \frac{1}{2} + \frac{2}{2^2} + \frac{2}{2^3} + \frac{2}{2^4} + ...
+\end{equation}
+
+\begin{equation}
+\text{or,} \frac{E[X^2]}{4}\ =\ 1 + \frac{1}{2^2} + \frac{1}{2^3} + \frac{1}{2^4} + ... 
+\end{equation}
+
+\begin{equation}
+\text{or,} \frac{E[X^2]}{4}\ =\frac{3}{2} \text{ (applying the formula for sum of Geometric Progression)}
+\end{equation}
+
+
+\begin{center}
+\boxed{E[X^2] = 6}
+\end{center}
+
+Having determined the value of $E[X^2]$, we can now find the standard deviation.
+
+\begin{center}
+$\sigma(X)=   \sqrt{E[X^2 ]- (E[X]) ^ 2}= \sqrt{6- 4} = \sqrt{2}$
+\end{center}
+
+\begin{center}
+\boxed{\sigma(X)=\sqrt{2}}
+\end{center}
+	
+\begin{comment}
 \textbf{Brain Teasers}
 \begin{enumerate}
 \item State whether series is convergent $\sum_{n=1}^{\infty} n/2^{n} $
 \item State whether the series is convergent $\sum_{n=1}^{\infty} 1/n$ 
 \end{enumerate}
-
+\end{comment}
 
 
 \bibliographystyle{plain}
