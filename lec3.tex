@@ -1,10 +1,12 @@
 %harihiom
-\documentclass{llncs}
+\documentclass{book}
 
 \usepackage[english]{babel}
 %\usepackage[utf8]{inputenc}
 %\usepackage{amsmath}
-\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{graphicx,wrapfig,lipsum}
+\usepackage{comment}
 \usepackage{float}
 %\usepackage{wrapfig}
 %\usepackage{titlepic}
@@ -23,7 +25,6 @@
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{gensymb}
-\usepackage{natbib}
 \usepackage{url}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
@@ -44,55 +45,39 @@
 
 %\newtheorem{theorem}{Theorem}
 %\newtheorem{lemma}{Lemma}
-
-\title{Lecture - 2}
-\author{Thursday, 28 July 2016 (17:10 - 18:00)}
-
-
-\institute{Puzzles : The Online Hiring/ Dating Problem}
+\setcounter{chapter}{2}
+\title{Probability Ideas in Computing}
 
 \begin{document}
-\maketitle
+%\maketitle
+\chapter{The Dating Problem : Decision Making under Uncertainty}
 
+In this chapter, we will discuss an important and interesting problem related to decision making under uncertainty. In such problems, one has to make decisions in the presence of incomplete information, which makes it difficult to predict the outcome of the choosen action. 
 
-\section{Some interesting math jokes and to be thought about questions}
+\section{Problem Statement}
 
-{\footnotesize These paradoxes have not been discussed in detail in the class. They will be covered in the tutorial session.}
+Imagine Aadhya is searching for a match for her marriage. There is a seqence of $n$ boys, $\{B_1,\ B_2,\ ..., \ B_{n}\} $, to be interviewed by her. However, she can interview only one boy at a time starting from $B_1$ to $B_n$. After every interview, she has to take one of the following two actions. 
+\begin{itemize}
+\item Reject the boy and move on. Once a boy is rejected, he can not be tied a knot to, in future.  
+\item Accept the boy and tie a knot. Once a boy is accepted, the process ends.
+\end{itemize}
+In case Aadhya rejects all the boys from $B_1$ to $B_{n-1}$, she has no option but to tie a knot with $B_n$. Our aim is to devise an algorithm for Aadhya in order to maximise her probability of getting the best boy for her marriage. 
 
-\begin{enumerate}
+\section{Solution}
+We know that it is very difficult, rather impossible, to get the best boy in this setting. The only plausible solution is to interview some boys. That will give Aadhya an idea of the fitness of the crowd. This idea can then help Aadhya in choosing the best boy. Hence, we adopt the following solution.
 
-\item A mathematician was caught hiding a bomb in his bag while boarding onto the flight from England to Canada. When asked why he has done so, he says - ``The probability of a man carrying a bomb in a flight = $\frac{1}{1000}$, which is still very high. So I could not have my peace of mind on the journey. But the probability of two people carrying a bomb in the flight = $\frac{1}{1000} \times \frac{1}{1000}\ = \frac{1}{1000000}$, which is very less. So if I carry a bomb, the probability of another bomb being present in this flight reduces by a very big extent."\\
-\textit{To think:}What is wrong about these reasoning. 
+\begin{tcolorbox}
+Aadhya interviews the first $k$ boys, $\{B_1, B_2, ..., B_k\}$. Let $B_k$ be the best match amongst these $k$ boys. Aadhya rejects all these $k$ boys mentally keeping a note of fitness of $B_k$. She continues the interviewing process and settles down as soon as she finds a match better than $B_k$. This has been illustrated in Figure \ref{boy}. The pseudocode for this solution is given in Algorithm \ref{dating}.
+\end{tcolorbox}
 
-\item Imagine a very old building standing intact from millions of years. Let $P(today)$ = The probability that this building will fall today and $P(tomorrow)$ = The probability that this building will fall tomorrow. \\
-\textit{To think}: Whether $P(today)<P(tomorrow)$, or $P(today)>P(tomorrow)$ or $P(today)=P(tomorrow)$ ?
-
-\item Consider a multiple choice exam conducted countrywide. There are two students- $A$ and $B$. $A$ and $B$ both have got equal marks. But $A$ knew the answers correctly of the questions he answered, while $B$ answered the questions randomly and was lucky enough to get the same marks as $A$. \\
-\textit{To think:} By looking at their OMR\footnote{Optical Mark Reading- One where we darken the bubbles corresponding to the correct answer- A/B/C/D.} sheets, can you tell, which is the sheet of $A$ and which is the sheet of $B$.
-
-\end{enumerate}
-
-
-\section{Online Hiring/ Dating Problem}
-\textbf{Problem Statement}: You are searching for a match for marriage. There are $1000$ boys standing in a row, and you have to choose one out of them. According to the rules of the game, you can interview the boys only in a sequence one by one. If the sequence is : \\ $B_1\ B_2\ B_3\ B_4\ B_5\ ....... \ B_{1000}\ $, you will first see $B_i$, only then $B_{i+1}$. You have a choice to accept or reject a boy. If you accept one, the game gets over and you tie a knot with the selected individual. If you reject a boy, you can not return back to him. He is gone forever. What should be the optimal strategy to choose as best person as possible?  
-
-\textbf{Solution:} \\
-\textit{Intuition:} Check out on some people. This will give you an idea of what the crowd is like. After getting the idea of the crowd, it will be easier to choose the best person. \\
-
-Look for the first $k$ boys. Let $B_k$ be the best among these. Reject all of these $k$ boys and keep a note of $B_k$. After k boys, as soon as you see a boy better than $B_k$, you accept. This has been shown in Figure \ref{boy}.
-
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\textwidth]{boys.jpg}
+\caption{Solution to the problem}
 \label{boy}
-\caption{The technique to choose as best boy as possible}
 \end{figure}
 
-As an intelligent reader can make out, the value of $k$ plays a significant role here. If the value of $k$ is very small, you will end up choosing an inferior quality boy, since you have not seen enough samples. If $k$ is very big, not enough boys will be left in slab 2 to take a proper decision. So, now we look at the question - What should be the value of $k$.\\
-
-Let $f(k)$ denote the quality of the selected boy when the first $k$ boys are employed as the sample of the entire population of available choices. We can plot a curve with $k$ on the X axis and $f(k)$ on the Y axis\footnote{Try writing a piece of code and observe how this plot looks like}. The roots of the equation $f'(k\ =0)$ give us the value of $k$ for which $f(k)$ is maximum, or in other words, we get the highest quality boy. This has been explained in detail in Algorithm \ref{dating}.
-
-\begin{algorithm}
+\begin{algorithm}[h!]
 \caption{The Dating Algorithm}\label{dating}
 \begin{algorithmic}[1]
 \Procedure{Dating}{}
@@ -115,54 +100,77 @@ Let $f(k)$ denote the quality of the selected boy when the first $k$ boys are em
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Probability that Algorithm \ref{dating} fetches you the best boy}
 
-The algorithm fails to fetch the best boy when one of the following two events occur.
+
+The intelligent reader might be contemplating over the optimal value of $k$. A very small value of $k$ results in a bad match since Aadhya can not see enough number of boys. This leads to her not getting the perfect picture of the fitness of the crowd. On the other hand, if $k$ is very large, there will not be enough boys left in slab-2 (refer Figure \ref{boy}) to find a good boy. Let us refer $k$ as sample size henceforth. 
+
+\subsection{Optimal sample size}
+Let $f(k)$ denote the quality of the solution when the sample size is $k$. $f(k)$ ranges from $1$ to $1000$ where the value $1000$ corresponds to the best quality and $1$ is for the worst. Our discussion above concluded that a very small as well as a very large value of $k$ results in a lesser $f(k)$. Our aim is to find the optimal value of $k$. Figure \ref{dating_k} shows a curve plotting $k$ on the X axis and $f(k)$ on the Y axis for a random sequence of $1000$ boys. It can be seen that the best choice is met for a much lesser value of $k$. 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.8]{dating.eps}
+\caption{Plotting $k$ vs. $f(k)$}
+\label{dating_k}
+\end{figure} 
+We will now mathematically analyse the solution and obtain a mathematical formula for the best value of $k$.
+
+\subsection{Mathematical Analysis}
+
+The algorithm fails to fetch the best result in one of the following two conditions.
 \begin{itemize}
-\item When the best boy is in the first $k$ boys(Our sample of the crowd). It is because, according to the algorithm the first $k$ boys are rejected and hence the best boy will also be rejected.  
-\item When we pick a boy after the first $k$ boys and he is non-best. This is shown in Figure \ref{hero}. Here, we end up picking a suboptimal boy which is sandwiched between the $k+1_{th}$ location boy and the best boy. 
+\item \textbf{When the best boy falls in the first slab (Firstly interviewed $k$ boys(Our sample of the crowd))}. 
+\item \textbf{When the best boy falls in the second slab but his position is after at least one boy who is better than $B_k$} (best boy chosen from the sample). This is shown in Figure \ref{hero}. Here, we end up picking a suboptimal solution which is sandwiched between the boy at the $k+1_{th}$ location boy and the best boy. 
 \end{itemize}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{hero.jpg}
-\label{hero}
 \caption{Choosing someone who is not the best}
+\label{hero}
 \end{figure}
 
 $Pr$(Best boy is in the first $k$ locations) = $ \frac{k}{n}$, since there are $k$ ways in which the best boy can be present at any of the first $k$ locations and the total number of locations to be present at are $n$. \\
 
-We call a boy to be the pseudo-best if its quality is greater than $B_k$ and lesser than the quality of the best boy.
+A boy is said to be pseudo-best if his quality is greater than $B_k$ and lesser than the quality of the best boy.
  
-For the algorithm to fetch the best boy
+Now, for the algorithm to fetch the best boy, both of the following conditions should hold.
 \begin{enumerate}
-\item The best boy should be present after the first $k$ locations. 
-\item If the location of the best boy is $i$, no pseudo-best boy should be picked from the locations $[k+1,i-1]$.
+\item The best boy should be present after the first $k$ locations (in the second slab). 
+\item If the location of the best boy is $i$, the the quality of all the boys in locations $[k+1,i-1]$ should be lesser than the quality of $B_k$. In other words no pseudo-best boy should be present in the locations $[k+1,i-1]$.
 \end{enumerate}
 
+Hence, $Pr$(We get the best boy)= $Pr$(Best boy is at the location $i$ and no pseudo-best boy is present in the locations $[k+1,i-1]$ ).\\
 
-Hence, $Pr$(We get the best boy)= $Pr$(Best boy is at the location $i$ and no pseudo-best boy is present in the location $[k+1,i-1]$ ).\\
+\begin{equation}\label{eq1}
+\text{Given a location $i$, $Pr$(Best boy is present at this location) = $1/n$.}
+\end{equation}
 
-Given a location $i$, $Pr$(Best boy is present at this location) = $1/n$. \hspace{2mm} ....(1)\\
+Let us divide the queue of boys in three slabs as shown in Figure \ref{slabs}.
 
-$Pr$(Pseudo-best boy is not there at locations $[k+1,i-1]$) = $\frac{k}{i-1}$. \hspace{2mm} ...(2) 
-
-Why? Let us see.\\ 
-We now, divide the queue of boys in three slabs as shown in Figure \ref{slabs}.
-
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\textwidth]{slabs.jpg}
-\label{slabs}
 \caption{Choosing the best}
+\label{slabs}
 \end{figure}
 
+\begin{center}
 $Pr$(The best boy from locations $1$ to $i-1$ is present before the location $k+1$)= $\frac{k}{i-1}$
+\end{center}
 
-From (1) and (2), \\
-$pr$(winning when the best boy is at the location $i$) = $\frac{1}{n} \times \frac{k}{i-1}$\\
 
-Now the location of the best boy can vary from $k+1$ to $n$. We have to take all these cases in account. \\
+\begin{equation}\label{eq2}
+\text{Hence, $Pr$(Pseudo-best boy is not there at locations $[k+1,i-1]$) = $\frac{k}{i-1}$..}
+\end{equation}
+
+
+
+From equations \ref{eq1} and \ref{eq2} \\
+\begin{center}
+$Pr$(winning when the best boy is at the location $i$) = $\frac{1}{n} \times \frac{k}{i-1}$\\
+\end{center}
+
+Now the location of the best boy can vary from $k+1$ to $n$. Taking all these cases in account,\\
 
 $Pr$(We end up choosing the best boy)= $\sum_{i=k+1}^n \frac{1}{n} \times \frac{k}{i-1}$\\
 
@@ -180,11 +188,11 @@ $Pr$(We end up choosing the best boy)= $\sum_{i=k+1}^n \frac{1}{n} \times \frac{
  \boxed{f(k)\ =\ \frac{k}{n} (log\ n - log\ k)}
  \]
  
- Differentiating \\
+ We want to find a $k$ which maximises this probability. Hence, we differentiate the above equation.
  
  $f'(k)=\ \frac{1}{n} (log\ n\ -\ log\ k) + \frac{k}{n} \times \frac{-1}{k}$\\
  
- Equate to $0$. \\
+ Equating to $0$,
  
  $\frac{1}{n} (log\ n\ -\ log\ k) + \frac{k}{n} \times \frac{-1}{k}\ =0$\\
  
@@ -200,5 +208,13 @@ $Pr$(We end up choosing the best boy)= $\sum_{i=k+1}^n \frac{1}{n} \times \frac{
  \]
 
 
+
+\bibliographystyle{plain}
+\bibliography{book}
+
 \end{document}
+
+
+
+
 
